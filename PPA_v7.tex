@@ -1,0 +1,601 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Author template for Operations Research (opre) for articles with e-companion (EC)
+%% Mirko Janc, Ph.D., INFORMS, mirko.janc@informs.org
+%% ver. 0.96, 11/30/2012
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\documentclass[opre,blindrev]{informs3} % current default for manuscript submission
+%\documentclass[mnsc,blindrev]{informs3}
+%\documentclass{informs3}
+\documentclass[informs]{informs3} 
+
+
+%\usepackage{times}
+\OneAndAHalfSpacedXI % current default line spacing
+%\OneAndAHalfSpacedXII
+%\DoubleSpacedXII
+%\DoubleSpacedXI
+
+% If hyperref is used,Latex|DVI->PS|PS->PDF dvi-to-ps driver of choice must be declared as
+%   an additional option to the \documentclass. For example
+%\documentclass[dvips,opre]{informs3}      % if dvips is used
+%\documentclass[dvipsone,opre]{informs3}   % if dvipsone is used, etc.
+
+%%% OPRE uses endnotes
+%%\usepackage{endnotes}
+\usepackage{eurosym}
+\usepackage{epstopdf}
+\usepackage{tabularx}
+\usepackage{enumerate}
+%%\usepackage{mathtools}
+\DeclareGraphicsExtensions{.eps}
+\let\footnote=\endnote
+\let\enotesize=\normalsize
+\def\notesname{Endnotes}%
+\def\makeenmark{\hbox to1.275em{\theenmark.\enskip\hss}}
+\def\enoteformat{\rightskip0pt\leftskip0pt\parindent=1.275em
+  \leavevmode\llap{\makeenmark}}
+
+% Private macros here (check that there is no clash with the style)
+
+% Natbib setup for author-year style
+\usepackage{natbib}
+ \bibpunct[, ]{(}{)}{,}{a}{}{,}%
+ \def\bibfont{\small}%
+ \def\bibsep{\smallskipamount}%
+ \def\bibhang{24pt}%
+ \def\newblock{\ }%
+ \def\BIBand{and}%
+
+ \usepackage{multirow}
+ \usepackage{multicol}
+ \usepackage{subcaption}
+
+%% Setup of theorem styles. Outcomment only one.
+%% Preferred default is the first option.
+\TheoremsNumberedThrough     % Preferred (Theorem 1, Lemma 1, Theorem 2)
+%\TheoremsNumberedByChapter  % (Theorem 1.1, Lema 1.1, Theorem 1.2)
+\ECRepeatTheorems
+
+%% Setup of the equation numbering system. Outcomment only one.
+%% Preferred default is the first option.
+\EquationsNumberedThrough    % Default: (1), (2), ...
+%\EquationsNumberedBySection % (1.1), (1.2), ...
+
+% In the reviewing and copyediting stage enter the manuscript number.
+\MANUSCRIPTNO{} % When the article is logged in and DOI assigned to it,
+                 %   this manuscript number is no longer necessary
+
+%%%%%%%%%%%%%%%%
+\begin{document}
+%%%%%%%%%%%%%%%%
+
+% Outcomment only when entries are known. Otherwise leave as is and
+%   default values will be used.
+%\setcounter{page}{1}
+%\VOLUME{00}%
+%\NO{0}%
+%\MONTH{Xxxxx}% (month or a similar seasonal id)
+%\YEAR{0000}% e.g., 2005
+%\FIRSTPAGE{000}%
+%\LASTPAGE{000}%
+%\SHORTYEAR{00}% shortened year (two-digit)
+%\ISSUE{0000} %
+%\LONGFIRSTPAGE{0001} %
+%\DOI{10.1287/xxxx.0000.0000}%
+
+% Author's names for the running heads
+% Sample depending on the number of authors;
+% \RUNAUTHOR{Jones}
+% \RUNAUTHOR{Jones and Wilson}
+% \RUNAUTHOR{Jones, Miller, and Wilson}
+% \RUNAUTHOR{Jones et al.} % for four or more authors
+% Enter authors following the given pattern:
+%\RUNAUTHOR{Oliveira and Williams-Rioux}
+
+% Title or shortened title suitable for running heads. Sample:
+% \RUNTITLE{Bundling Information Goods of Decreasing Value}
+% Enter the (shortened) title:
+\RUNTITLE{Designing Power Purchasing Agreements}
+
+% Full title. Sample:
+% \TITLE{Bundling Information Goods of Decreasing Value}
+% Enter the full title:
+\TITLE{Designing Power Purchasing Agreements}
+
+% Block of authors and their affiliations starts here:
+% NOTE: Authors with same affiliation, if the order of authors allows,
+%   should be entered in ONE field, separated by a comma.
+%   \EMAIL field can be repeated if more than one author
+
+%\ARTICLEAUTHORS{%
+%\AUTHOR{Fernando S. Oliveira}
+%\AFF{\EMAIL{bizfmdo@nus.edu.sg}} %, \URL{}}
+
+%Department of Analytics and Operations, National University of %Singapore Business School. 
+
+%\AUTHOR{Bertrand Williams-Rioux}
+%\AFF{ \EMAIL{xxxxxxxxxxx}}
+%Kapsarc, Saudi Arabia 
+
+% Enter all authors
+%} % end of the block
+
+\ABSTRACT{%
+In this article we address the issue of the design of power purchasing agreements (PPAs). We analyze the complexity of the problem and propose an abstract formulation of the different components and their interactions. We model the bi-level problem representing the interaction between the buyer and the potential sellers studying, analyzing how the optimal weights assigned by the buyer to the different objectives of the PPA influence the generators’ optimal behavior. We apply the model to the analysis of investment in the S.A. energy market.
+}
+% Sample
+%\KEYWORDS{deterministic inventory theory; infinite linear programming duality;
+%  existence of optimal policies; semi-Markov decision process; cyclic schedule}
+
+% Fill in data. If unknown, outcomment the field
+\KEYWORDS{Electricity; Renewables; Power Purchasing Agreements.}
+%\SUBJECTCLASS{Decision analysis: risk-averse players. Games/group decisions: stochastic equilibrium between generators and retailers. Industries: electricity supply chain. }
+
+
+%\HISTORY{This paper was first submitted on April 12, 1922 and has been with the authors for 83 years for 65 revisions.}
+
+\maketitle
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Samples of sectioning (and labeling) in OPRE
+% NOTE: (1) \section and \subsection do NOT end with a period
+%       (2) \subsubsection and lower need end punctuation
+%       (3) capitalization is as shown (title style).
+%
+%\section{Introduction.}\label{intro} %%1.
+%\subsection{Duality and the Classical EOQ Problem.}\label{class-EOQ} %% 1.1.
+%\subsection{Outline.}\label{outline1} %% 1.2.
+%\subsubsection{Cyclic Schedules for the General Deterministic SMDP.}
+%  \label{cyclic-schedules} %% 1.2.1
+%\section{Problem Description.}\label{problemdescription} %% 2.
+
+% Text of your paper here
+
+\section{Introduction}\label{Introduction}
+An essential feature of the liberalization of the electricity markets has been the use of power purchasing agreements (PPAs) both in the promotion of renewables but also in the transition process from the regulated regime in which the older assets, in many countries, were given long-term contracts that guaranteed the profitability of the productive asset at a pre-agreed rate of return of investment. These contracts are of interest to several countries in the Arab Peninsula, including Saudi Arabia who are pursuing electricity market reform based on the Single Buyer model. Countries representing the Gulf Cooperation Council (GCC) exhibit similar market structures, based on the single buyer model, with consumer tariffs subject to direct subsidies, and indirect subsidies on fuel purchases. In 2004 Oman transitioned from a vertically integrated market, to multiple IPP’s entering into PPAs organized by the Oman Power \& Water Procurement Company (OPWP), \cite{Albadi_2017}. The OPWP will also act as the operator of the wholesale electricity spot market, with plans to begin operation in 2020. 
+
+
+The Saudi Arabian state owned Saudi Electricity Company (SEC) has announced restructuring plans similar in nature to Oman. The recently formed SEC Principal Buyer Department will play a similar role as OPWP, as the previously vertically integrated company unbundles the ownership of generation assets into new private generation companies. It will be responsible for implementing new PPAs to encourage the growth of private generation companies. The contracts should also conform to the government’s fuel price and tariff reform strategies, and plans to transition to a whole sale spot energy market. 
+%Oliveira et al. (2018) provide an overview, and simulate potential impacts, of the restructuring plan. 
+
+The procurement of power from SEC’s current fleet of generating currently operate under long term PPA’s designed to cover the plants investment fixed and non-fuel operating costs. Fuel costs are back by the government, providing SEC with a cashless procurement of fuel from Saudi Aramco, with payables transferred to government account. Despite the favorable cost structure, SEC frequently reports a net loss, which increased from USD 625 million in Q4 2016 to USD 1.47 billion in Q4 2017, \cite{Falcom_2018}. Historically investment decisions have been under the control of the government with electricity tariffs set to regulated government subsidized rates. Under tight market and capital investment controls SEC has reported a return on equity well below global benchmarks, with significant debt to earnings ratio, reported at 6.9 in 2017.
+
+Under the government’s plans to sell SEC’s assets to the private sector, the Principal Buyer will organize new PPA’s similar to contracts currently negotiated with IPP’s that represented 15\% of available capacity in 2017, \cite{ECRA_2018}. However, the current financial position of SEC creates several challenges. One of the first requirement is transitioning fuel procurement to the generators, eliminating government accounting practices for Aramco fuel bills. This includes reform of industrial fuel prices with a gradual transition to a linked reference price,  \cite{Fiscal_Balance_2018}. As a result new PPA’s for the private generation companies will pay significantly more than current fixed rates, for example 1.25 USD/mmbtu charges for natural gas. As variable costs go up tariff levels in the PPA’s must also be adjusted. A challenge for negotiating new contracts will be both protecting consumer welfare while resolving outstanding debt obligations on existing assets.
+
+
+There are two extreme approaches that we could use to generalize the governments approach to designing PPA’s for transferring assets and their debt obligation. In one case the government approves variable electricity tariffs well above current levels. The tariffs capture targeted fuel price reforms to cover higher operating costs and generate acceptable returns for private generators. %As pointed out in an analysis of the restructuring by Oliveira et al. (2018), 
+Reforming fuel and energy prices prior to the unbundling would increase the value of assets sold. This would help to alleviate SEC’s debt obligations and create incentives for generators to prioritize fuel efficiency and possibly diversify into renewable technologies. However this would put strain on government consumer accounts and consumer welfare targets governed by the Electricity and Cogeneration Regulatory Authority.  
+
+Another approach would be to discount the value of the debt obligations transferred through the PPA’s, while preserving the fuel price reform targets and efficiency signals. This would allow the Principal Buyer to set a lower fixed capacity payment in the new PPA’s, and put less strain on consumer accounts budgeted by the government. The government might resist this strategy if it sets greater priority on the SEC to resolve its debt problem. However, this could provide an opportunity for the government to make a strong commit to advancing the restructuring process by creating favorable conditions for private investors in the early stages. This would put less initial pressure on government payments to consumer account, and support a more gradual transition to higher end-user tariffs. We incorporate the two approaches into a case study on the design of new PPA’s in the Saudi market, using the multi-objective optimization approach presented in the following sections.
+
+
+In theory, the PPA model can support a smooth transition to the wholesale competition model. However, there is clear evidence that when poorly designed PPA’s fail to in this regard, and even become responsible for the failure in the transition process.  For example, Egypt electricity market reform based on IPP investment had to be abandoned after the currency devaluation of 2002-2003 as it doubled the local cost of energy under USD denominated contracts, \cite{Eberhard_2007}. Some states in India had problems due to lack of investment by the IPPs. In South America the markets have equally failed to give the right signals for capacity investment. In the Philippines, on the other hand, the take-or-pay contracts were too generous leading to over investment, as the additional capacity was not required after the Asian financial crises, leading to wasted capacity and very high electricity prices (\citealp{Santiago_Roxas_2010}). 
+
+There are two major models for restructuring the electricity market (e.g., \citealp{Nagayama_2007}): a) wholesale and retail competition, in which there is a partition of the incumbent utilities into generators, retailers, and transport, with the creating of spot markets for electricity and competition among retailers and generators; b) the Single-Buyer model, in which some of the elements of market competition are introduced in the generation and there is a Buyer that is a public company, or owned by the retailers, and buys the energy and capacity required by the market. 
+
+In theory, this Single-Buyer model allows a smoother transition to the wholesale competition model. It tends to be used in developing economies, and it is the preferred model in countries with large oil reserves. Unfortunately, in practice this model has lead to delays in introducing structural reforms until after the liberalization is complete. The Single-Buyer is typically under pressure to pay too much for the electricity and to block further reforms to the market. For these reasons, the Single-Buyer model tends to be expensive for taxpayers and (or) consumers. Taiwan has adopted a single-buyer model (e.g., \citealp{Shih_2007}) in which the IPPs sell to the Taiwan Power Company at the avoidable cost, including both the payments for capacity and energy.
+
+
+\section{Review of the PPA Literature}\label{Lit_review}
+
+PPAs are long-term performance-based contracts between the electricity generator (seller) and the electricity purchaser (buyer). The buyer may be a representative of the utilities (which we call retailers) and that are responsible for selling the energy to the final consumer, it may be the system operator or the national grid (who then sell the energy purchase to the retailers). These PPAs typically last from 15 to 30 years, depending on the countries and on the generation technology. The contracts provide a risk management instrument that are meant to both protect the investments made by suppliers (generators) of the electricity industry and the consumers that purchase their services. The major functions of the PPAs during the liberalization process were (e.g., \citealp{Kee_2001}): a) to protect consumers and taxpayers from spot market price increases; b) to protect generators from low energy prices, preventing the shut-down of plants due to short-term low prices and, therefore, ensuring the financial viability of the generators during the transition process; c) to reduce any possible market power of generators in the spot market, giving incentives for generation plants to be available at times of high prices, and to coordinate the annual maintenance times. 
+
+There are, usually, several components to a PPA, which may include, e.g., \cite{RCREEE_2012}: a) the energy price which may be fixed, tied to the electricity retail price, tied to the fuel cost; b) a fixed capacity payment; c) the capacity required to be deliverable before the contract starts; d) a minimum delivery obligation which, if not met the generator would be accountable for any losses suffered by the buyer; e) a maximum delivery obligation which stipulates that the buyer may be entitled to pay less for any extra energy generated and the generator may have even to pay for any excess generation. 
+
+Typically, in the initial stages of the liberalization process the renewable generation were given guaranteed feed-in-tariffs that would represent the minimum price received by the generator (which would receive the spot price of the electricity if higher) and would have priority in dispatching. This process was very successful and has lead to a surge of investment in renewable technologies, for example in Portugal and Spain, however this was achieved under state guaranteed prices for all technologies, as feed-in-tariffs were used for renewables and co-generation whereas thermal and large hydro plants kept the old PPAs that were designed to guarantee a rate of return (e.g., \citealp{Amorim_et_al_2013}). These old PPAs, written in the 1990s, had a capacity payment (the largest component) and energy price (to cover the variable costs). The capacity payments are computed annually and cover operational and fixed costs, and are indexed to inflation and exchange rates.
+
+
+Unfortunately, even when it was a success the PPAs have lead almost always to a large cost for consumers and (or) taxpayers, as it now seems that, given the problems in setting the right level for the feed-in-tariff. \cite{Kashi_2015} has analyzed the IPPs projects in developing countries concluding that they have an incentive to increase the stated investment costs (in order to mitigate risk) and to adopt inefficient power plants as the markups on these plants can be higher.  
+
+
+For this reason, most electricity markets are now moving to an auction based profit to attribute these PPAs, e.g., \cite{IRENA_2015}. For example, \cite{Shrimali_2016} have analyze the case of India concluding that auctions are cost-effective, saving 58\% from baseline feed-in-tariffs. \cite{Cozzi_2012}, among others, analyzes the case of Brazil’s reverse auctions on wind-power, which were successful in decreasing the PPAs prices and in attracting foreign investment. China has also moved to auctions as a way to determine a market based feed-in-tariff; from 2013, Italy uses auctions to determine how much capacity is installed for each technology under the feed-in-tariffs, avoiding the problems with excess capacity, and awarding the licenses to build to the bidders that offer the largest discount to the pre-defined feed-in-tariff (\citealp{IRENA_2015}). \cite{Newbery_2016} has also concluded that the history of the electricity system in Britain supports the idea that auctions for long-term contracts reduce risk, the cost of capital, nonetheless, these contracts, in order to work, need to include a connection to short-term energy and transmission price signals. 
+
+During these auctions the buyer requests proposals, pre-defining the terms of the PPA, and openly publishing the evaluation criteria used, and the quantity of capacity to be contracted in the auction. It should be noted that competitive bidding has been showed to deliver lower capacity payments (which is the part of the cost of the bid harder to assess) as the generators declare lower capacity costs, when compared to bilateral negotiations between the buyer and the generation companies, \cite{Phadke_2009}. Auctions are, therefore, more cost-effective than feed-in tariffs. Nonetheless, underbidding is the major issue with the auctions because when the price is too low the winner may not deliver the investment. 
+
+
+For this reason, there has been a recent move from the feed-in-tariffs to closed-bid auction for the PPAs in different technologies. Nonetheless, \cite{Electric_power_2004, delRio_Linares_2014, Shrimali_2016} explain that auctions have a deployment problem (i.e., the winner may not build the contracted plant) and, in order to increase the reliability of the auctioning process, they suggest that: a) competition for the tenders needs to be high, b) access to transmission improved, c) there are credit requirements in the call for projects, d) the tender is better organized using pay-as-bid auctions and e) there should be strong penalties for any delays on delivery.
+
+
+Brazil is one of the countries that has adopted auction for procurement of energy through long-term contracts between the distribution company and the generators, \cite{Rego_Parente_2013}. The process includes a Dutch-Anglo auction in which, in the first stage, there is a descending clock auction and, in the second stage, there is a single-bid auction. There are two different auctions, one with delivery limit of 3 years (for thermal plants) and another one with delivery of 5 years (for hydro plants). The thermal plants receive a 15 years contract whereas the hydro plants are given a 30 years contract. 
+
+A very similar process is used in the UK. In the inception of the market there was a capacity payment that was a function of the energy price in the electricity pool and of the probability of a supply disruption. In the last 15 years the energy market has moved to a bilateral trading for energy (with a pool for the spot market) with capacity auctions in which the capacity payments are determined. In this capacity market there is a price for the capacity bid into the auction. This capacity auction fixes the capacity payment for 15 years and it takes place 3 years before production is due to start. 
+
+It has been argued that there are several problems with the capacity markets. First, they can be gamed by the generators as it can bid a plant into the spot energy market at a very high price in order to ensure it is not called to generate, and still receive the capacity payment for being available. Second, the market operator has a large control over investment by defining a) the fixed costs used by reference when organizing the auction, b) the deadline to start producing, and c) how many years the auction takes place before delivery.
+
+
+\section{PPA Design and Selection Using Multi-Objective Optimization} \label{Section_MOO}
+In this section we review the literature on the application of multi-objective optimization to the purchasing problem. See, for example, \cite{Ehrgott_2005} and \cite{Taha_2007} for a general introduction to multi-objective optimization. We have chosen to use this tool to compare and evaluate the tenders as it allows the study of problems where there are trade-offs between objectives and it has been used in procurement problems to compare different suppliers and tenders. 
+
+Moreover, the multi-objective decision problem may be, in most cases, solved using linear programming and, therefore, allows the inclusion of realistic details in the representation of the problem and on the decision process faced by the decision-maker. Additionally, it can also be employed in the solution of hierarchical problems in which the buyer has a clear ranking of the different objectives that need to be met. 
+
+The evaluation and selection of the best projects has three main components, e.g.,\cite{KEMA_et_al_2013}: a) pre-assessment; b) economic cost-benefit analysis; c) multi-objective evaluation.
+
+The pre-assessment has three main phases (e.g., \citealp{Asian_Dev_Bank_2010}): a) the eligibility check, in which the projects are analyzed to verify that they meet the call minimum requirements; b) identification of complementarities between the projects and possible issues with project clustering; c) verification that the project data is reliable. 
+
+In practice, for a PPA, some of the minimum requirements may include the identification of the site and demonstration of control over it; proof of security compliance; demonstration of experience in developing at least one commercial electricity generation project; proof that the technology chosen is mature; a demonstration that the project can be connected to the grid; local content requirements both at regional and national levels.
+
+
+The equivalent tender price model proposed by \cite{Meland_et_al_2011} aims to help in this stage of the selection process by increasing the probability of avoiding project failure due to cost overrun or lack of quality, which is partially achieved by increasing transparency in the tender evaluation process. The main idea of this approach is to identify unreliable projects by comparing the submitted costs with replacement costs obtained using market prices. If the costs submitted and computed by the equivalent tender are very different it is a sign that the tender may not be reliable.
+
+
+In a second phase we have the economic cost benefit analysis. This assesses the viability of the project given the expected price and cost scenarios, impact on the security of supply and $CO_2$ emissions. If the project is found viable from the perspective of the society (it has a positive net present value), then it proceeds to the ranking stage.
+
+
+Finally, by using multi-objective optimization the different pre-announced selection criteria are used to rank the projects  (e.g., Asian Development Bank, 2010). The different criteria for evaluation can be classified into classes to which a weight is given. For example (e.g., \citealp{KEMA_et_al_2013}) used the following criteria (weights) pairs: Net present value (0.47), competition enhancement (0.19), system adequacy (0.17), implementation progress (0.11), support of RES (0.06). This list is highly political though, as many other criteria could have been used and even the weights to have been very different. Then, by applying the different multi-objective optimization techniques, which are a small detail given all the policy choices put into the design of the tender process, the projects are selected. 
+
+
+Other criteria used may include, generically, the price bid, the quality factors, managerial data in terms of accountability and competence, and local content. For example, a very different set of weights and criteria were used by Quebec tender for wind farms (e.g., \citealp{Merrimack_2005}):  a) cost of electricity (0.35), regional content (0.3) national content (0.3), relevant experience (0.1), financial strength (0.05) and project feasibility (0.05). The weights used in the project call for tenders are highly controversial as it puts a very large weight in the local content, which means that instead of trying to benefit electricity consumers the government of Quebec has decided that these consumers should subsidize the production of wind in order to foster their development even if they were not, at the time of the call, competitive internationally. Such a policy has been very successful in China in the development of the wind power equipment industry, e.g., \Citealp{Cozzi_2012}. 
+
+There are three major approaches to solve the multi-objective optimization problem: a) the scalarization technique (e.g., \citealp{Liu_et_al_2000}); b) goal programming; c) multi-level programming. When using the scalarization technique the buyer assumes that all the objectives are of comparable importance and then similar but different weights are assigned to the objectives, which are combined in a single objective scalar function. 
+
+Goal programming is used when all the objectives are of comparable importance and the buyer assigns weights to the objectives and, at the same time, defines the targets that need to be met by each one of them. Then the targets are combined into an objective function composed by the weighted average of the deviation from the targets. The optimal policy is the one that minimizes this function.
+
+On the other hand, multi-level programming is used when there is a hierarchy in the priority level for the objectives. A function representing the weighted average of the highest priority objectives is solved first. Then this solution is used as a constraint in the problem of minimizing the weighted average of the second priority functions. The process then may continue for lower level priority functions by using the solutions of the high priority goals as constraint to the lower priority objectives. This process ensures that the main objectives of the buyer are given a higher possibility of being met, and that deviations from the targets occur for the lower priority objectives.      
+
+Finally, after the tenders are ranked by using the specific method chosen by the buyer, it still needs to select how many of the projects that are of acceptable quality will be selected in the call. 
+
+If there were not enough bids to meet the required capacity then all the qualifying projects are accepted and paid the respective bid prices. This is possibly a very problematic situation as the lack of competition, as discussed earlier, may lead to very high prices: the danger of facing high prices can be prevented by imposing as a qualification criterion a maximum electricity price.
+
+If there are more projects qualified than the required capacity the buyer has to choose the combination of projects to be chosen. This selection can be based on the ranking by the weighted cost, choosing the cheapest; or based on the cost of the higher priority objectives. A second approach is to have a second round of bidding, in which there is an upper bound on the different objectives equal to the bids by the marginal plant project for each one of the targets (as is the case of the Brazilian auctions for the energy price, e.g., \citealp{Rego_Parente_2013}).
+
+
+\section{Modeling the Generator’s Decision Process } \label{Section_Generator}
+
+Having reviewed the literature on the use of multi-objective optimization for the selection and design of procurement auctions, we are now prepared to start analyzing the decision process used by a generator when biding for a PPA. This analysis is based on the generic hierarchical multi-attribute bid framework proposed \cite{Chua_Li_2000}, which we have adapted for the PPA problem. 
+
+In general the decision problem of the bidder is complex, but can be decomposed into simple interactive parts. The main objective of the bidder is to maximize the expected profit (or net present value) of the project, which needs to take into account a) the probability of winning and b) the return on investment. 
+
+
+\cite{Chen_1989} proposed a non-linear function to compute the probability of winning as a function of the bid price using a gamma distribution and assuming that the number of competitors follows a Poisson distribution. Nonetheless, this function is not only non-linear but also non-convex, which makes the multi-objective optimization problem much harder to solve. For this reason, \Citealp{Kameshwaran_et_al_2007} approach, based on using piece-wise linear objective functions, seems preferable, as it allows the flexibility of designing a complex bid response function, keeping, at the same time, the linearity of the objective function. Another approach that is based on a log-normal probability of winning, solved as a convex quadratic optimization problem was proposed by \Citealp{Capen_et_al_1971}. 
+
+\Citealp{Phillips_2005}, Ch. 11, proposed two different approaches. First a model based on a logistic bid response function to model the probability of a bid being accepted, taking into account both quality variables, bid price, and the effect of competition. The second model is based on a uniform distribution, which used much less information on the relationship between the choice of variables and the probability of winning. One advantage of Phillips’ methods is that it assumes that only the competition against the winning bid is modeled, independently of the number of firms bidding. Given the lower requirement of information we focus our analysis on the uniform distribution model.  
+
+Let $x_j$  stand for the level of the selection criteria $j$ out of a list of the $N$ different pre-defined selection criteria defined by the buyer with the weight $\omega_j$  . Let $\pi(x_1, ..., x_j, ..., x_N)$ stand for the profit received by the generator when using the policy $x_1, ..., x_j, ..., x_N$ ; $\rho(x_1, ..., x_j, ..., x_N)$  stands for the probability of winning the bid by using policy $x_1, ..., x_j, ..., x_N$ ; and $\phi(x_1, ..., x_j, ..., x_N)$  be the rating of policy $x_1, ..., x_j, ..., x_N$.       
+
+The objective of the bidder is to maximize the expected profit of the bid as represented by (\ref{eqGenObjective}). The probability of the bid being accepted (\ref{eqGenProbability}) is defined by a logistic bid response function. The bid response function depends on the ranking obtained by the bid, as defined by (\ref{eqGenRating}), in which $\omega_j$  is the weight, pre-announced by the buyer, associated with objective criteria $j$. The logistic probability distribution (\ref{eqGenProbability}) increases to one with a higher rating and it decreases to zero with lower ratings. The rating is represented by a weighted average of the different criteria used by the buyer, and it can go from minus infinity to plus infinity, the higher the better.
+
+
+\begin{subequations}\label{eqGeneratorsProblem}
+	\begin{align}
+	&\mathop {Maximize}\limits_{x_1, ..., x_j, ..., x_N}
+	\quad \mathop{\mathbb{E}}(\pi)= \rho(x_1, ..., x_j, ..., x_N)\pi(x_1, ..., x_j, ..., x_N) \label{eqGenObjective}\\
+	&\quad \mbox{{\it subject to}:}\notag\\
+	&\qquad	\rho(x_1, ..., x_j, ..., x_N)=\frac{1}{1+e^{-\phi(x_1, ..., x_j, ..., x_N)}} \label{eqGenProbability}\\
+	&\qquad	\phi(x_1, ..., x_j, ..., x_N) = \sum_{j=1}^{N}\omega_j x_j \label{eqGenRating} 
+	\end{align}
+\end{subequations}
+
+
+This internal decision process is based on the inputs that influence the objective function of the bidder and it aims to rationalize the choice of variables to optimally submit to the auction given the different factors considered, such as: a) Competition: do we know who the competitors are and what is there bidding profile? b) The generator’s position in the bidding. c) Risk assessment: analysis of the possible loss incurred by submitting a bid.
+
+The competition depends on the nature of the project, the bidding requirements and economic conditions. Depending on the type of project, degree of technological difficulty, site availability, resource requirements and contractual arrangements, pre-qualification requirements, bidding process, time allocated for preparation of the bids, availability of competitive projects, availability of qualified workers, access to equipment, and regulatory regime, the number of competitors and the keenness of the bidding process changes. 
+
+In our model, the stronger the competition (due to a larger number of competitors) the lower the probability of winning the bid, for the same rating. This means that the minimum rating of the competitors’ increases and, therefore, the probability that, for a given policy, the project is accepted decreases.  
+
+
+\section{Describing the Components of the Profit Function}\label{Section_profit}
+
+We start by defining the inputs to the generator’s decision process. We have considered three different types of components: a) bid related factors, which depend on the specific project being considered, such as the bidding requirements; b) social and economic conditions; c) firm related factors. 
+
+The profit function considered (\ref{eqProfit}) depends on the specific technology being auctioned, and on possible penalties associated to the call for projects. $p$ is the average energy price; $\delta$ stands for the capacity price; $c$  is the marginal cost;  $f$  are the fixed costs; $l$  is the percentage of local content, $q$ is production and $k$ is capacity. $y$ is the number of years of experience of the management team, and $h$ is an index of the financial strength of the project.
+
+
+\begin{equation} \label{eqProfit}
+\pi(\delta,l,h,y) = (p-c)q+(\delta-f)k
+\end{equation}
+
+
+As local content is a requirement that some governments find necessary to develop industries that are not yet competitive at international prices, it leads to higher industry costs (due to lower productivity from local equipment and local workers). For this reason, we can approximate the relationship between local content and the cost structure of the firms as represented in (\ref{eqMarginalCost}) and (\ref{eqFixedCost}), in which $c_I, f_I$ , stand for the expected marginal and fixed international costs, and $c_L, f_L$  represent the equivalent costs when the plants are built using local content only. 
+
+\textcolor{red}{We also consider the impact of experienced management on costs. Let $\tau$  stand for the impact of number of years of experience on the fixed costs associated to remuneration of the team and $y$ represent the actual number of years of experience. In equation (\ref{eqFixedCost}) the percentage increase in capital with respect to financial strength ($h$) is represented by $\mu$. The financial strength is captured by as the ratio between the bank warranties and the fixed costs of the project.
+While experienced firms have higher fixed costs, due to hiring better staff, they are also more reliable and, therefore, incur in less risk of the project not meeting the targets.}  
+%We also include the percentage increase in capital cost based on the years of experience of the management team as the parameter $\xi$.
+
+
+\begin{equation} \label{eqMarginalCost}
+c = c_I(1-l)+c_Ll
+\end{equation}
+
+\begin{equation} \label{eqFixedCost}
+f = f_I(1-l)+f_Ll+\tau y+\mu h
+\end{equation}
+
+
+
+The energy supply is represented by (\ref{eqEnergySupply}) and it is a function of the available capacity. The targeted proportion of capacity available for production, $\theta$, is represented by (\ref{eqTheta}), i.e., the process governing production, which is a function of the local content: the larger the proportion of local content the lower the proportion of capacity available and the faster the deterioration of the plant, $\epsilon_l$. It is also a function of the financial strength of the project, $\epsilon_h$. Another important factor that influences the project feasibility is the risk in project execution, including the risks associated with the project, the generator, the buyer, and the social economic environment. Among the several factors conditioning these risks we would emphasize the degree of subcontracting, the degree of technological challenges, safety hazards, knowledge of the management team, financial strength of the firm, regulatory changes, availability of qualified staff, fuel price fluctuations. The project feasibility needs, therefore, to take into account the risk of execution, which depends on the number of years of experience of the management team $(y)$, on the proportion of local content $(l)$. We would hypothesize that local content leads to higher risk of increased costs whereas years of experience decreases the risk. 
+
+\begin{equation} \label{eqEnergySupply}
+q \leq \theta k
+\end{equation}
+
+\begin{equation} \label{eqTheta}
+\theta = \theta_0-\epsilon_l l +\epsilon_h h
+\end{equation}
+
+The energy price is a direct function of the expected production $Q$. This relationship is a demand function, represented by (\ref{eqEnergyDemand}), which would be announced by the buyer in the call for projects. The main idea of including a demand function in the call is to give incentives for the generators to propose larger projects and a lower price. The announcement would also include a minimum expected production that, in effect, also works as a price cap. When the buyer decides to use a feed-in-tariff the $b$ is set to zero and the tariff is equal to $a$.
+
+\begin{equation} \label{eqEnergyDemand}
+q = a - bp
+\end{equation}
+
+Finally, the buyer can also publish a demand for capacity in the call for projects. The advantage of such a function is that it provides incentives for the generators to reduce the capacity payment in order to develop larger projects. The capacity demand function is represented by (\ref{eqCapacityDemand}): $m$ is the maximum size of the project and $g$ is the increase in the size of the production capacity per monetary unit of increase in the capacity price.
+
+
+\begin{equation} \label{eqCapacityDemand}
+k = m -g \delta
+\end{equation}
+
+\section{The  Problem}\label{Section_problem}
+We now analyze how the  problem is built from the perspective of the buyer taking into account the factors influencing the bidding for a energy project and the way it conditions the bidder’s behavior. In order to derive a ranking function that based on the dual variables of the buyers problem we will need to use a standardization process that allows the buyer to use decision variables that have the same scale. 
+
+The buyer’s problem is to analyze how to set up the weights to the different objectives of the call for projects so as to give the incentives for the optimal bid to meet the buyer’s goals for tender process. The buyer’s problem is represented by (\ref{eqBuyersProblem}), in which (\ref{eqBuyerObjective}) is the profit received by the optimal bid controlled by the standardized decision variables.
+Having defined the constraints such that the targets (indexed by an superscript "0") are defined by benchmarking with the international standards and adapted to the local reality, the buyer then checks the shadow prices of each one of them, as these are used in the call for tenders and advertised as the selection criteria.
+
+\begin{subequations}\label{eqBuyersProblem}
+	\begin{align}
+	&\mathop {Maximize}\limits_{\omega_{\delta},\omega_{h},\omega_{l},\omega_{p,\omega_{y}}}
+	\quad %\phi(\delta_s, h_s, l_s, p_s, y_s) = 
+	 \omega_{\delta}\frac{\delta^{0}-\delta}{\delta^{0}}+\omega_{h}\frac{h-h^{0}}{h^{0}}+\omega_{l}\frac{l-l^{0}}{l^{0}}+\omega_{p}\frac{p^{0}-p}{p^{0}}+\omega_{y}\frac{y-y^{0}}{y^{0}} \label{eqBuyerObjective}\\
+	&\quad \mbox{{\it subject to}:}\notag\\
+	&\qquad	 \delta_s \leq \delta_{s}^{0}\label{eqBuyerCapacityPrice} \\
+	&\qquad	 h_s \geq h_{s}^{0}\label{eqBuyerFinance} \\
+	&\qquad	 l_s \geq l_{s}^{0}\label{eqBuyerLocal} \\	
+	&\qquad	 p_s \leq p_{s}^{0}\label{eqBuyerEnergyPrice} \\
+	&\qquad	 y_s \geq y_{s}^{0}\label{eqBuyerExperience} \\	
+	&\qquad	 \omega_{\delta}+\omega_{h}+\omega_{l}+\omega_{p}+\omega_{y}=1\label{eqBuyerNormal} \\		
+	&\qquad \mathop {Maximize}\limits_{\delta, h, l, p, y}
+	\quad \rho(\delta, h, l,p,y)\left(\left(p-c\right)q+\left(\delta-f\right)k\right) \label{eqGeneratorObjective}\\ 
+	&\qquad \quad \mbox{{\it subject to}:}\notag\\
+	&\qquad \qquad c = c_I(1-l)+c_Ll \label{eqBuyerMarginalCost}\\
+	&\qquad \qquad f = f_I(1-l)+f_Ll+\tau y+\mu h \label{eqBuyerFixedCost}\\
+	&\qquad \qquad \theta = \theta_0-\epsilon_l l  +\epsilon_h h \label{eqBuyerTheta}\\
+	&\qquad \qquad k = m -g \delta \label{eqBuyerCapacityDemand}\\
+	&\qquad \qquad q \leq \theta k	\label{eqBuyerEnergySupply}\\
+	&\qquad \qquad q = a - bp \label{eqBuyerEnergyDemand}\\	
+	&\qquad	\qquad	y_s =\label{eqYStd}\\	
+	&\qquad	\qquad \rho(\delta, h, l, p,y)=\frac{1}{1+e^{-\phi(\delta, h, l, p, y)}} \label{eqGeneratorProbability}\\
+	&\qquad	\qquad \phi(\delta, h, l, p, y) =  	 \omega_{\delta}\frac{\mathop{\mathbb{E}}\left(\delta\right)-\delta}{\sigma\left(\delta\right)}
+	+\omega_{h}\frac{h-\mathop{\mathbb{E}}\left(h\right)}{\sigma\left(h\right)}+\omega_{l}\frac{l-\mathop{\mathbb{E}}\left(l\right)}{\sigma\left(l\right)}+\omega_{p}\frac{\mathop{\mathbb{E}}\left(p\right)-p}{\sigma\left(p\right)}+\omega_{y}\frac{y-\mathop{\mathbb{E}}\left(y\right)}{\sigma\left(y\right)} \label{eqGeneratorRating}\\
+	&\qquad \qquad  h \leq 1 \label{eqGeneratorFinance}\\
+	&\qquad \qquad  l \leq 1 \label{eqGeneratorLocal}\\
+	&\qquad \qquad  \delta, h, l, p, y \geq 0 \label{eqGeneratorNon-Negative}
+	\end{align}
+\end{subequations}
+
+
+
+
+\section{Case Study}\label{Section_CaseStudy}
+
+We apply the multi-objective optimization tool in the selection of decision criteria weights that could be used by the Principal Buyer for new PPAs in the Saudi Electricity market. We design different scenarios to simulate how the results of the model, the weights output by the buyer’s problem, respond to changes in the underlying targets. We focus on changes in the underlying energy and capacity prices and how these might impact the corresponding weights related to the characteristics of the generators (financial security, local content, and experience) 
+
+When SEC sells existing assets to private generators the how the buyer sets capacity and energy price targets will be influenced by the government and industry regulators. The existing generation assets owned by the SEC come with government backed debt obligations. The government is likely to prioritize privatizing these assets at a valuation that covers sunk costs and debts owed by SEC. As a result the buyer may have to commit to a higher targeted capacity price I order to attract private companies to invest in these assets. Alternatively, the government could put less emphasis on the value of the capacity, and focus on other aspect of the market, giving the buyer flexibility to set a lower capacity price target. 
+ 
+ 
+How capacity is valued has a direct impact on targets set for the energy price and production. For example under a higher capacity price, the regulator may require the buyer to seek lower targets for the energy price to control tariff levels and protect consumers. This could require the government compromising on fuel price reform objectives in order to attract more bids from the generators. This would negatively impact market signals needed to support system efficiency improvements and transition to alternative technologies, like solar power, as laid out in Saudi Arabia’s Vision 2030. 
+
+Alternatively, increasing fuel prices, and the resulting energy prices paid to generators, could stress government expenditures on consumer electricity subsidies. A lower capacity price target could be seen as favorable to restructuring the market during the initial stages. Higher energy price targets could be sets, with less burden on final consumer tariff and government subsidies, to attract private sector investors and more bids. However, this could require the government compromising on the SEC’s debt obligations and sunk costs.
+
+
+\subsection{Scenario Design}\label{subsection_ScenarioDesign}
+
+To capture these two extreme cases we design two sets of scenario targets summarized in Table 1. The targets are selected for a new PPA designed for the Qurayyah IPP Combined Cycle Gas Turbine (CCGT) Power Plant. It was built in 2014 with SEC as the majority shareholder. The total unit capital and development was 2,722 million USD/KW for 3.93 GW of capacity with natural gas as the primary fuel (based on data from http://www.globalenergyobservatory.org/geoid/43689).
+
+Targets for local content, years of experience, financial strength, and utilization factor are configured using different investment statements and reports by Saudi government agencies. Calculating the average and standard deviations of each target is difficult given a lack of available data on existing projects. Instead we assign representative values for each standardizing each target, as detailed below.
+
+
+In the National transformation Program (NTP 2017) the baseline percentage of local content in total expenditure for The Ministry of Energy Mineral and Mineral Resources is reported as 36\% and a benchmark of 50\%. Assuming the local content will be lower for power projects, given that the majority of equipment must be sourced from international suppliers, we set the targeted local content for power sector investments at 30\%. When calculating the standardized targets we assume an average local content factor of 25\%, with a standard deviation of 5\%.
+
+The targeted minimum years of experience of the management team $(y_s^{0})$ is set to 5 and the optimal number of years of experience $(y^{*})$ to 10. For standardization we use an average of 7 years, and standard deviation of 2. We were unable to obtain sufficient data to estimate the cost slippage parameters for each year of experience below the optimal value $(y^{*} = 10)$, on capital, fixed and variable operating costs, $\tau_c, \tau_f, \tau_o$, respective. We attribute a cost slippage of 1\% of the actual costs for each year of experience below the optimal level. 
+
+The targeted utilization factor is calculated as in equation (\ref{eqTheta}). The initial utilization $\theta_0$, set to 70\% subtracted by impact of local content, $\epsilon_l$, and years of experience,〖$\epsilon_y$, plus the set impact of financial strength, $\epsilon_h$. The average utilization factor is set to 65\% with a standard deviation of 10\%. Actual data was not available to estimate the size of the impact. To estimate their impact  We calibrate the parameters $\epsilon_l$ to decrease the utilization factor by 0.1\% for each percentage point of local content and $\epsilon_y$ to 0.5\% each year below the optimal number of years of experience, respectively. Parameter $\epsilon_h$ is set to increasing the utilization factor by 0.1\% for each financial strength percentage point earned.
+
+
+The targeted financial strength, ratio of warranties to capital cost, is set to 0.75, based on the gearing ratio reported by Bloomberg New Energy Finance (BNEF 2017) for the development of the Al Mourjan plant. This sets a strong level of financial instruments to be secured by the firm. The impact of financial strength on the cost of capital $(\mu)$ is defined as 0.1\% of the actual capital cost for each percentage point earned. The average is set to 0.6 with a standard deviation of 0.2.
+
+The target energy and capacity prices are determined using the capital, fixed and variable operating costs. The annual capital cost of the Al Mourjan plant is calculated as 188 USD/KW assuming a 6\% discount rate for Saudi power sector investments (\citealp{Matar_et_al_2016}), for a 35 year lifetime. We set the capital cost based on 100\% international content to 73 USD/KW, based on the reported capital cost for CCGT from \cite{Rioux_et_al_2017}, and using the same discount rate and lifetime. This discrepancy between the two reveals a significant markup on the Saudi project. One reasoning for the capital markup could be that PPAs offer very low price for energy with a small rent on production for producers. This can cause investors to markup the reported cost of capital to receive a higher capacity payment and return on the actual (as opposed to reported) investment. 
+
+Using these values and assuming the reported capital cost (188 USD/KW) is based on 30\% localized content, we approximate the capital cost under 100\% local content as 457 USD/KW. We assume a fixed operation and maintenance cost of 19.9 USD/KW and a non-fuel variable operating cost of 1.24 USD/MWH using values reported by \cite{Rioux_et_al_2017}.
+The capacity price targets are set to the combined value of the annualized investment cost (equation \ref{eqInvestmentCost}) and the fixed operating costs (equation \ref{eqOperationalCost}). The capital and fixed operating costs includes the slippage parameters with respect to the number of year of experience (5\% at 5 years below the optimal). Capital costs include a markup based on the targeted financial strength (0.2\% per financial-strength point, 15\% at a financial strength of 0.75) plus the markup for years of experience (2\% for each year of experience, 10\% at 5 years).  For the \textit{High Capacity Price} scenario we obtain at targeted price of 239 USD/KW. 
+
+For the \textit{Low Capacity Price} scenario we apply a 50\% discount on the cost of purchasing capital using 30\% local content resulting in an annualized capital cost of 94 USD/KW. This represents a new benchmark price for new investments by the private sector, well below the high capital cost reported on the Al Mourjan plant, and 29\% higher than the international benchmark (73 USD/KW). This lower value can be interpreted as a discount on the original investment with the government writing off the SEC’s debt. By reducing the capacity price, the buyer can commit to a higher energy price, providing investors with a good return without significantly increasing the total cost of the contract.  This supports the transition to higher variable production cost (price of fuel procured by the generators), without hurting final consumers or subsidies required by the government. Such a discount may be perceived as necessary by investors if the original cost is deemed to high compared to building a new plant. 
+
+
+To set the target energy price we first calculate the fuel and non-fuel variable operating costs, assuming a 50\% net efficiency for CCGT. For the \textit{High Capacity Price} scenario we assume the government makes a compromise on fuel price reform targets, charging power producers 1.5 USD/mmbtu, 20\% higher than the current industrial rate (\citealp{Fattouh_2018}). Including the slippage coefficient for variable costs ($\tau_c$), under the minimum number of years of experience we calculate an operating cost of 12.1 USD/MWH. For the \textit{Low Capacity Price} (high energy price) scenario we assume fuel prices are raised to 3.95 USD/mmbtu as a hypothetical reform target. This gives a total variable operating cost of 28.8 USD/MWH. 
+
+Finally the target energy prices are calculated using a 3\% and 1.26\% markup on the marginal production costs in \textit{Low} and \textit{High Capacity Price} scenarios, respectively (about 0.36 USD/MWH). This values were provided to provide each scenario with a similar return an investment, but with more emphasis on the energy produced. The final contract value, and total expected profits, along with the value of each target with their average and standard deviation are listed in Table 1. 
+
+
+
+\section{Conclusions}\label{Conclusions}
+
+%%%%%%%%%%
+
+\begin{thebibliography}{}
+\bibitem[{Amorim et al. (2013)}]{Amorim_et_al_2013}	
+Amorim, F., J. Vasconcelos, I. C. Abreu, P. P. Silva, V. Martins, 2013. “How Much Room for a Competitive Electricity Generation Market in Portugal.” \textit{Renewable and Sustainable Energy Reviews}, 18: 103-118.	
+	
+\bibitem[{Albadi (2017)}]{Albadi_2017}	
+Albadi, 2017!!!!!!!!!!!!.	
+	
+	
+\bibitem[{Asian Development Bank (2010)}]{Asian_Dev_Bank_2010}
+Asian Development Bank. \textit{Guide on Bid Evaluation}. www.adb.org , October, 2010, pp. 195. 
+
+\bibitem[{Capen et al. (1971)}]{Capen_et_al_1971}
+Capen, E. E., R. V. Clapp, W. M. Campbell, 1971. “Competitive Bidding in High-Risk Situations." \textit{Journal of Petroleum Technology}, 23: 641-653.
+
+\bibitem[{Cozzi (2012)}]{Cozzi_2012}
+Cozzi, P. “Assessing Reverse Auctions as a Policy Tool for Renewable Energy Deployment,”  Energy, Climate, and Innovation Program, 7. The Center for International Environment \& Resource Policy, Tufts University, www.fletcher.tufts.edu/cierp, May, 2012, pp. 38.
+
+\bibitem[{Chen (1989)}]{Chen_1989}
+Chen, H., ”Competitive Bidding Strategy in the Construction Industry, Game Theoretic Approach,” Master of Science in Civil Engineering, Graduate School of the New Jersey Institute of Technology. May, 1989, pp. 92.
+
+\bibitem[{Chua and Li (2000)}]{Chua_Li_2000}
+Chua, D.K.H., D. Li, 2000. “Multiattribute Electronic Procurement Using Goal Programming.” \textit{Journal of Construction Engineering and Management}, 126 (5): 349-357.
+
+\bibitem[{del Rio and Linares (2014)}]{delRio_Linares_2014}
+del Rio, P., and P. Linares, 2014. “Back to the Future? Rethinking Auctions for Renewable Electricity Support.” \textit{Renewable and Sustainable Energy Reviews}, 35: 42-56.
+
+\bibitem[{Eberhard (2007)}]{Eberhard_2007}
+Eberhard, A., 2007. “From State to Market and Back Again: Egypt’s Experiment with Independent Power Projects.” \textit{Energy}, 32: 724-738.
+
+\bibitem[{ECRA (2018)}]{ECRA_2018}
+ECRA, 2018!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
+\bibitem[{Ehrgott (2005)}]{Ehrgott_2005}
+Ehrgott, M., “Multicriteria Optimization.” Second edition. Springer. 2005.
+
+\bibitem[{Electric Power Supply Association (2004)}]{Electric_power_2004}
+Electric Power Supply Association. Getting the Best Deal for Electricity Utility Customers. www.epsa.org. 2004, January, pp. 35.
+
+
+\bibitem[{Falcom (2018)}]{Falcom_2018}
+Falcom, 2018!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+\bibitem[{Fattouh (2018)}]{Fattouh_2018}
+Fattouh, 2018!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+\bibitem[{Fiscal Balance Program (2018)}]{Fiscal_Balance_2018}	
+Fiscal Balance Program, 2018  !!!!!!!!!!!!.	
+
+
+\bibitem[{IRENA (2015)}]{IRENA_2015}
+IRENA. “Renewable Energy Policies and Auctions,” www.irena.org, 2015, pp. 39.
+
+\bibitem[{KEMA et al. (2013)}]{KEMA_et_al_2013}
+KEMA, REKK and EIHP. “Development and Application of a Methodology to Identify Projects of Energy Community Interest.” KEMA Consulting GmbH.  September, 2013, pp. 92. 
+
+\bibitem[{Kameshwaran et al. (2007)}]{Kameshwaran_et_al_2007}
+Kameshwaran, S., Y. Narahari, C. H. Rosa, D. M. Kulkarni, J. D. Tew, 2007. “Multiattribute Electronic Procurement Using Goal Programming.” \textit{European Journal of Operational Research}, 179: 518-536.
+
+\bibitem[{Kashi (2015)}]{Kashi_2015}
+Kashi, B., 2015. “Risk Management and the Stated Investment Costs by Independent Power Producers.” \textit{Energy Economics}, 49: 660-668. 
+
+\bibitem[{Kee (2001)}]{Kee_2001}
+Kee, E. D., 2001. “Vesting Contracts: A Tool for Electricity Market Transition.” \textit{The Electricity Journal}, July: 11-22. 
+
+\bibitem[{Liu et al. (2000)}]{Liu_et_al_2000}
+Liu, S. L., K. K. Lai, and S. Y. Wang, 2000. “Multiple Criteria Models for Evaluation of Competitive Bids.” \textit{IMA Journal of Mathematics Applied in Business and Industry}, 11 (3): 151-160.
+
+
+\bibitem[{Matar et al. (2016)}]{Matar_et_al_2016}
+Matar et al. (2016)!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
+\bibitem[{Meland et al. (2011)}]{Meland_et_al_2011}
+Meland, O. H., K. Robertsen, G. Hannas. “Selection Criteria and Tender Evaluation: The Equivalent Tender Price Model (ETPM).” In “Management and Innovation for a Sustainable Built Environment, The CIB conference MISBE2011, 20-23 June, 2011. 
+
+\bibitem[{Merrimack Energy Group (2005)}]{Merrimack_2005}
+Merrimack Energy Group. “Bid Evaluation and Selection Process For Wind-Generated Electricity For 1000 MW of Capacity Call for Tenders Process,” 2005, pp. 17.
+
+\bibitem[{Nagayama (2007)}]{Nagayama_2007}
+Nagayama, H., 2007. “Effects of Regulatory Reforms in the Electricity Supply Industry on Electricity Prices in Developing Countries.” \textit{Energy Policy}, 35: 3440-3462. 
+
+\bibitem[{NREL (2009)}]{NREL_2009}
+National Renewable Energy Laboratory (NREL). “Power Purchase Agreement Checklist for State and Local Governments.” Energy Analysis, 2009, pp. 11. 
+
+\bibitem[{Newbery (2016)}]{Newbery_2016}
+Newbery, D., 2016. “Tales of two islands – Lessons for EU Energy Policy From Electricity Market Reforms in Britain and Ireland.” \textit{Energy Policy}, 105(C): 597-607. 
+
+\bibitem[{Phadke (2009)}]{Phadke_2009}
+Phadke, A., 2009. “How many Enrons? Mark-ups in the Stated Capital Cost of Independent Power Producers’ (IPPs’) Power Projects in Developing Countries.” \textit{Energy}, 34: 1917-1924.
+
+\bibitem[{Phillips (2005)}]{Phillips_2005}
+Phillips, R. L., \textit{Pricing and Revenue Optimization}. Stanford University Press, 2005. 
+
+
+\bibitem[{RCREEE (2012)}]{RCREEE_2012}
+Regional Center for Renewable Energy and Energy Efficiency (RCREEE). “USER’S GUIDE for The Power Purchase Agreement (PPA) Model For Electricity Generated From Renewable Energy Facilities.” www.rcreee.org, 2012, pp. 17.
+
+
+\bibitem[{Rego and Parente (2013)}]{Rego_Parente_2013}
+Rego, E. E., and V. Parente, 2013. “Brazilian Experience in Electricity Auctions: Comparing Outcomes From New and Old Energy Auctions as Well as the Application of the Hybrid Anglo-Dutch design,” Energy Policy, 55: 511-520. 
+
+\bibitem[{Rioux et al. (2017)}]{Rioux_et_al_2017}
+Rioux et al. (2017)!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
+\bibitem[{Santiago and Roxas (2010)}]{Santiago_Roxas_2010}
+Santiago, A., and F. Roxas, 2010. “Understanding Electricity Market Reforms and the Case of Philippine Deregulation.” \textit{The Electricity Journal}, 23 (2): 48-57. 
+
+\bibitem[{Shih (2007)}]{Shih_2007}
+Shih, H.-C., 2007. “Evaluating the Prospective Effects of Alternative Regulatory Policies on the Investment Behaviour and Environmental Performance of a Newly Liberalised Electricity Industry in Taiwan.” \textit{Socio-Economic Planning Sciences}, 41: 320-335. 
+
+\bibitem[{Shrimali et al. (2016)}]{Shrimali_2016}
+Shrimali, G., C. Konda, A. A. Farooquee. 2016. “Designing Renewable Energy Auctions for India: Managing Risks to Maximize Deployment and Cost-Effectiveness.” \textit{Renewable Energy}, 97: 656-670. 
+
+\bibitem[{Taha (2007)}]{Taha_2007}
+Taha, H. A., “Operations Research, An Introduction.” Eighth edition. Pearson Prentice Hall. 2007.
+
+
+\end{thebibliography}
+
+
+%% Here starts the e-companion (EC)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\ECSwitch
+
+%\ECDisclaimer
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%% Main head for the e-companion
+%\ECHead{Online Appendix}
+%\begin{APPENDICES}
+%A general heading for the whole e-companion should be provided here as in the example above this paragraph.
+
+
+% Appendix here
+% Options are (1) APPENDIX (with or without general title) or
+%             (2) APPENDICES (if it has more than one unrelated sections)
+% Outcomment the appropriate case if necessary
+%
+%\newpage
+% \begin{APPENDICES}{}
+% 
+%
+%   or
+%
+% \begin{APPENDICES}
+% \section{<Title of Section A>}
+% \section{<Title of Section B>}
+% etc
+% \end{APPENDICES}
+
+%\begin{APPENDICES}
+%\section{Derivation of the spot market outcomes (\ref{prop_S})-(\ref{prop_qS})}\label{Appendix_prop_lin_equi}
+
+%\section{Concavity characterization and first order optimal conditions for problems (\ref{eq3.9}) and (\ref{eq3.10})}\label{Appendix_C}
+
+
+%\end{APPENDICES}
+
+
+% Acknowledgments here
+%\ACKNOWLEDGMENT{The authors gratefully acknowledge the existence of
+%the Journal of Irreproducible Results and the support of the Society
+%for the Preservation of Inane Research.}
+
+
+% References here (outcomment the appropriate case)
+
+% CASE 1: BiBTeX used to constantly update the references
+%   (while the paper is being written).
+%\bibliographystyle{ormsv080} % outcomment this and next line in Case 1
+%\bibliography{<your bib file(s)>} % if more than one, comma separated
+
+% CASE 2: BiBTeX used to generate mypaper.bbl (to be further fine tuned)
+%\input{mypaper.bbl} % outcomment this line in Case 2
+
+%If you don't use BiBTex, you can manually itemize references as shown below.
+
+
+%%%%%%%%%%%%%%%%%
+\end{document}
+%%%%%%%%%%%%%%%%%
+
+
+
+
+
