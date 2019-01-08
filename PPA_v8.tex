@@ -408,11 +408,11 @@ Price bids                     & \multicolumn{3}{l}{p (USD/MWh)}                
 \multicolumn{1}{c}{Scenario}   & Target                & $\mathbb{E}$()        & $\sigma()$ & Target                & $\mathbb{E}()$        & $\sigma()$             &  &   & \multicolumn{1}{c}{Target} & \multicolumn{1}{c}{$\mathbb{E}()$} & \multicolumn{1}{c}{$\sigma()$} \\
 $\textit{High capacity price}$ & 12.08                 & 12.09                 & 0.13       & 197.4                 & 197.64                & 2.67                   &  & l & \multicolumn{1}{c}{0.3}    & \multicolumn{1}{c}{0.27}           & \multicolumn{1}{c}{0.05}       \\
 $\textit{Low capacity price}$  & 29.61                 & 29.65                 & 0.32       & 118.44                & 118.58                & 1.34                   &  & h & 0.75                       & 0.75                               & 0.05                           \\
-$\textit{Higher volatility}$  & \multicolumn{1}{l}{"} & \multicolumn{1}{l}{"} & 0.48       & \multicolumn{1}{l}{"} & \multicolumn{1}{l}{"} & \multicolumn{1}{l}{''} &  & y & 5                          & 4                                  & 1.15                           \\ \cmidrule(r){1-7} \cmidrule(l){9-12} 
+$\textit{Higher volatility}$  & \multicolumn{1}{l}{"} & \multicolumn{1}{l}{"} & 0.44       & \multicolumn{1}{l}{"} & \multicolumn{1}{l}{"} & \multicolumn{1}{l}{''} &  & y & 5                          & 4                                  & 1.15                           \\ \cmidrule(r){1-7} \cmidrule(l){9-12} 
 \end{tabular}
 \end{table}
 
-The targets are selected for a PPA awarded to the winning private bidder of the Qurayyah IPP Combined Cycle Gas Turbine (CCGT) Power Plant. It was built in 2014 with SEC as the majority shareholder. The total unit capital and development was 2,722 million USD/KW for 3.93 GW of capacity with natural gas as the primary fuel (GLOBAL Energy Observaotry) based on data from http://www.globalenergyobservatory.org/geoid/43689).
+The targets are selected for a PPA awarded to the winning private bidder of the Qurayyah IPP Combined Cycle Gas Turbine (CCGT) Power Plant. It was built in 2014 with SEC as the majority shareholder. The total unit capital and development was 2,722 million USD/KW for 3.93 GW of capacity with natural gas as the primary fuel (GLOBAL Energy Observatory).
 
 Calculating the average and standard deviations of each decision criteria can be challenging because of the lack of published data on existing project proposals. As an estimate  we construct a four parameter beta distribution for each decision criteria $x_j$, as shown in figure \ref{figBeta}  with the expected value and standard deviation expressed in equation (\ref{eqBetaDist}). We define $x_j^{min}$ and $x_j^{max}$ as the minimum and maximum values of the distribution, respectively, while $\alpha_j$ and $\beta_j$ are the shape parameter of the distribution. This allows us to construct distributions for  a specific range with the flexibility to design different bidding behaviours by modifying $\alpha_j$ and $\beta_j$.
 
@@ -427,10 +427,10 @@ Calculating the average and standard deviations of each decision criteria can be
 	\newcommand{\betaAvg}{\pgfmathparse{(#4*#3+#5*#2)/(#4+#5)}\pgfmathresult}
     \newcommand{\betaStd}{\pgfmathparse{(#3-#2)/(#5+#4)*sqrt(#4*#5/(#5+#4+1))}\pgfmathresult}
     	\centering	      	\begin{tikzpicture}
-        	\node [anchor=west] (params) at (1.5,2.5) {\small $\alpha =#4$};
-            \node [anchor=west] (params) at (1.5,2) {\small$\beta=#5 $};
-            \node [anchor=west](avg) at (1.5,1.5) {\small $\mathbb{E}(#1)=\betaAvg$};
-            \node [anchor=west](std) at (1.5,1) {\small $\sigma(#1)=\betaStd$};
+        	\node [anchor=west] (params) at (4,5) {\small $\alpha =#4$};
+            \node [anchor=west] (params) at (4,4.5) {\small$\beta=#5 $};
+            \node [anchor=west](avg) at (4,4) {\small $\mathbb{E}(#1)=\betaAvg$};
+            \node [anchor=west](std) at (4,3.5) {\small $\sigma(#1)=\betaStd$};
           	\begin{axis}[
           		xmin=#2, 
                 xmax=#3, 
@@ -467,19 +467,20 @@ The targeted minimum years of experience of the management team, $y^{0}$, is set
 
 The targeted financial strength $(h^{0})$, ratio of warranties to capital cost, is set to 0.75. This matches the gearing ratio reported by Bloomberg New Energy Finance (BNEF 2017) for the Al Mourjan plant, requiring generation companies to secure a relatively high level of financial instruments to win the contract. For the distribution we assume a minimum value of 0.6 and a maximum of 0.9, with a symmetric distribution.
 
-The distribution of local content, shown in figure (\ref{figBetal}) is concentrated towards lower levels with minimum level of 20\%, a maximum level of 40\%. This reflects the fact that most equipment in Saudi Arabia needs to be sourced from international suppliers, given the lack of local industries. We assume a an expected value of 26.7\% and a standard deviation of 4.78\%. In the National Transformation Program (NTP 2017) the baseline percentage of local content in total expenditure by The Ministry of Energy Mineral and Mineral Resources is reported as 36\% with a benchmark of 50\%. Assuming the local content will be lower for power projects we select a targeted level $(l^{0})$ of 30\%. 
+The distribution of local content, shown in figure (\ref{figBetal}) is concentrated towards lower levels with minimum level of 20\%, a maximum level of 40\%. This reflects the fact that majority of equipment used in Saudi power generation projects needs to be sourced from international suppliers, given the lack of local manufacturing for the power industry. We assume a an expected value of 26.7\% and a standard deviation of 4.78\%. In the National Transformation Program (NTP 2017) the baseline percentage of local content in total expenditure by The Ministry of Energy Mineral and Mineral Resources is reported as 36\% with a benchmark of 50\%. Assuming the local content will be lower for power projects we select a targeted level $(l^{0})$ of 30\%. 
 
 Other parameters related to years of experience, financial strength local content and the utilization factor are as follows. The slippage parameter increasing capital cost for each year of experience ($\tau$) is  set to  1\% of the total capital cost at the targeted level of local content. The slippage parameter for financial strength $(\mu)$  is set such that at the targeted level of financial strength and local content the capital cost increases by 10\%, (0.13\% for each percentage point of financial guarantees).  The initial utilization factor, defined as $\theta_0$, is set to 70\%. It is modified by the impact of local content $(\epsilon_l)$, set to -0.1\% for each percentage of local content used in the project,  plus the positive  impact of financial strength $(\epsilon_h)$, set to 0.05\% for each percent of financial warranties secured by the company. These values reflect how the generators decisions can impact their bid for project, but do not based on actual statistics.
 
 The target energy and capacity prices are determined using reported investment and variable operating costs. The annualized capital cost of the Al Mourjan plant is calculated as 188 USD/KW assuming a 6\% discount rate for Saudi power sector investments (\citealp{Matar_et_al_2016}), for a 35 year lifetime. We set the benchmark annualized capital cost at 100\% international content to 73 USD/KW, using a capital cost of 1059 USD/KW as reported for a CCGT by \cite{Rioux_et_al_2017}, applying the same discount rate and lifetime. This discrepancy between the two reveals a significant markup on the Saudi project, with respect to the international benchmark. One reasoning for the capital markup could be that PPAs offer a very low price for energy with a small rent on production for producers. This can cause investors to markup the reported cost of capital to receive a higher capacity payment and return on the actual (as opposed to reported) investment. \todo{Any examples. studies to support this?}
 
-The capital cost under 100\% local content is set to 400 USD/KW, assuming that the reported capital cost for the Al Mourjan plant (188 USD/KW) corresponds to 30\%  local content, and includes the cost slippage for years of experience and financial strength. We assume a a non-fuel variable operating cost of 1.24 USD/MWH using values reported in \cite{Rioux_et_al_2017}. \todo[inline]{I have not included the impact of local content on the marginal cost in these scenarios ...}
+The capital cost under 100\% local content is set to 400 USD/KW, assuming that the reported capital cost for the Al Mourjan plant (188 USD/KW) corresponds to 30\%  local content, and includes the cost slippage for years of experience and financial strength. We assume a a non-fuel variable operating cost of 1.24 USD/MWH using values reported in \cite{Rioux_et_al_2017}.
 
-In the \textit{high capacity price} scenario the capacity price target is set to the annualized investment cost including the cost slippage terms (equation \ref{eqBuyerFixedCost}), at the targeted decisions $(l=l^{0}, y=y^{0}, h=h^{0})$,  adding a $5\%$ markup. To set the target energy price we first calculate the fuel and non-fuel variable operating costs, assuming a 50\% net efficiency for CCGT. We assume the government makes a compromise on fuel price reform targets, charging power producers 1.5 USD/mmbtu, $20\%$ higher than the current industrial rate (\citealp{Fattouh_2018}). The targeted energy price is also calculated  applying a $5\%$ markup.
+In the \textit{high capacity price} scenario the capacity price target is set to the annualized investment cost including the cost slippage terms (equation \ref{eqBuyerFixedCost}), at the targeted decisions $(l=l^{0}, y=y^{0}, h=h^{0})$,  adding a $7\%$ markup. The target energy price is set to the total of non-fuel and fuel variable operating costs, assuming a 50\% net efficiency for CCGT, again applying a $7\%$ markup.  We assume the government makes a compromise on fuel price reform targets, charging power producers 1.5 USD/mmbtu, $20\%$ higher than the current industrial rate (\citealp{Fattouh_2018}). The total variable operating cost is 10.67 USD/KWh. We assume that under the target level of local content the operating costs increase by 5\% to 11.20 USD/MWh.
 
-For the \textit{low capacity price} scenario we reduce the annualized capital cost (at 30\% local content)t by540\ to 94.0 USD/KW, offeringg a discount on the purchase of capital by private investors.This may require the government writing off a portion of SEC’s debt, still owned by the plant, but allows the buyer to commit to a higher energy price without significantly increasing the total cost of the contract.  Such a discount may be perceived as necessary by investors if the original cost is deemed to high compared to building a new plant. Under the the lower capital requirement fuel prices are increased to 3.95 USD/mmbtu as a hypothetical reform target, resulting in a higher variable operating cost of 28.8 USD/MWh.
+For the \textit{low capacity price} scenario we reduce the annualized capital cost (at 30\% local content)t by540\ to 94.0 USD/KW, offeringg a discount on the purchase of capital by private investors.This may require the government writing off a portion of SEC’s debt, still owned by the plant, but allows the buyer to commit to a higher energy price without significantly increasing the total cost of the contract.  Such a discount may be perceived as necessary by investors if the original cost is deemed to high compared to building a new plant. Under the the lower capital requirement fuel prices are increased to 3.95 USD/mmbtu as a hypothetical reform target, resulting in a higher variable operating cost of 28.8 USD/MWh. We apply a 5\% increase in variable operating cost at the target level of local content.
 
-The beta distributions of the energy and capacity price bids for all three scenarios are shown in figure (\ref{figBetaPrices}). The energy price bids range from the marginal cost $c$ at the targeted local content for each scenario (minimum) to a maximum of $1.05\%$ of $p^0$, while the capacity price bids range from the annualized capital cost in each scenario to a maximum of $1.05\%$ of $\delta^0$. We apply a symmetric bell shaped distribution for both prices. For the \textit{Higher volatility} scenario the beta distribution for the energy price is widened, increasing the standard deviation of the energy price from 0.315 to 0.482.
+
+The beta distributions of the energy and capacity price bids for all three scenarios are shown in figure (\ref{figBetaPrices}). The energy price bids range from the marginal cost $c$ at the targeted local content for each scenario (minimum) to a maximum of $1.05\%$ of $p^0$, while the capacity price bids range from the annualized capital cost in each scenario to a maximum of $1.05\%$ of $\delta^0$. We apply a symmetric bell shaped distribution for both prices. For the \textit{Higher volatility} scenario the beta distribution for the energy price is widened, increasing the standard deviation of the energy price from 0.32 to 0.44.
 
 The results of the model, including the value of the rating function $(\phi)$, the probability of the bid being accepted $(\rho)$, the weights assigned by the buyer, cost of the contract, generator costs and total profits, are listed in table (\ref{tableResults}).
 \begin{figure}
@@ -488,18 +489,18 @@ The results of the model, including the value of the rating function $(\phi)$, t
     	\plotBeta{p}{11.5}{12.68}{10}{10}
     \end{subfigure}~
     \begin{subfigure}[b]{0.5\textwidth}
-    	\plotBeta{\delta}{188}{207.27}{6}{6} 
+    	\plotBeta{\delta}{188}{207.27}{5}{6} 
     \end{subfigure}\\
     \begin{subfigure}[b]{0.5\textwidth}
     	\plotBeta{p}{28.2}{31.09}{10}{10}
     \end{subfigure}~
     \begin{subfigure}[b]{0.5\textwidth}
-    	\plotBeta{\delta}{94}{1103.64}{6}{6} 
+    	\plotBeta{\delta}{94}{1103.64}{5}{5} 
     \end{subfigure}\\
         \begin{subfigure}[b]{0.5\textwidth}
-    	\plotBeta{p}{28.2}{31.09}{4}{4}
+    	\plotBeta{p}{28.2}{31.09}{5}{5}
     \end{subfigure}~
-    \caption{Beta distributions of the energy price and capacity price for the $\textit{high capacity price}$ (a) and (b), $\textit{low capacity price}$ (c) and (d), and $\textit{higher volatility} $ (e) scenarios}
+    \caption{Beta distributions of the energy price and capacity price for the $\textit{high capacity price}$, (a) and (b), $\textit{low capacity price}$, (c) and (d), and $\textit{higher volatility} $ (e) scenarios}
     \label{figBetaPrices}
 \end{figure}
 
@@ -508,17 +509,17 @@ The results of the model, including the value of the rating function $(\phi)$, t
 \caption {Rating, probability of bid acceptance, weights, contract cost, generator cost, and profit for each scenario} \label{tableResults}
 \begin{tabular}{@{}llll@{}}
 \toprule
-Scenario                & \$\textbackslash{}textit\{High capacity price\} & \$\textbackslash{}textit\{Low capacity price\} & \$\textbackslash{}textit\{Higher volatility\} \\ \midrule
-Rating, $\phi$          & 0.457                                           & 0.479                                          & 0.460                                              \\
-$\rho$                  & 0.612                                           & 0.617                                          & 0.613                                              \\
-$\omega_p$              & 0.151                                           & 0.362                                          & 0.376                                              \\
-$\omega_{\delta}$       & 0.129                                           & 0.007                                          &                                                    \\
-$\omega_h$              & 0.113                                           & 0.055                                          & 0.055                                              \\
-$\omega_l$              & 0.606                                           & 0.384                                          & 0.379                                              \\
-$\omega_y$              &                                                 & 0.192                                          & 0.190                                              \\
-PPA cost (bil \$)       & 1.027                                           & 1.278                                          & 1.533                                              \\
-Generator cost (bil \$) & 0.978                                           & 1.217                                          & 1.460                                              \\
-Profit (bil \$)         & 0.049                                           & 0.061                                          & 0.073                                              \\ \bottomrule
+Scenario                & $\textit{High capacity price}$ & $\textit{Low capacity price}$ & $\textit{Lower price volatility}$ \\ \midrule
+Rating, $\phi$          & 0.072                          & 0.175                         & 0.140                             \\
+$\rho$                  & 0.518                          & 0.544                         & 0.535                             \\
+$\omega_p$              & 0.101                          & 0.267                         & 0.298                             \\
+$\omega_{\delta}$       & 0.396                          & 0.199                         & 0.191                             \\
+$\omega_h$              & 0.066                          & 0.033                         & 0.032                             \\
+$\omega_l$              & 0.437                          & 0.387                         & 0.370                             \\
+$\omega_y$              &                                & 0.114                         & 0.109                             \\
+PPA cost (bil \$)       & 1.039                          & 1.120                         & 1.120                             \\
+Generator cost (bil \$) & 0.971                          & 1.049                         & 1.047                             \\
+Profit (bil \$)         & 0.068                          & 0.072                         & 0.073                             \\ \bottomrule
 \end{tabular}
 \end{table}
 
@@ -579,6 +580,7 @@ Fattouh, 2018!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 \bibitem[{Fiscal Balance Program (2018)}]{Fiscal_Balance_2018}	
 Fiscal Balance Program, 2018  !!!!!!!!!!!!.	
 
+\bibitem[{Gloabl Energy Observatory (2018)}[GEO] http://www.globalenergyobservatory.org/geoid/43689).]
 
 \bibitem[{IRENA (2015)}]{IRENA_2015}
 IRENA. “Renewable Energy Policies and Auctions,” www.irena.org, 2015, pp. 39.
