@@ -18,7 +18,7 @@
 % If hyperref is used,Latex|DVI->PS|PS->PDF dvi-to-ps driver of choice must be declared as
 %   an additional option to the \documentclass. For example
 %\documentclass[dvips,opre]{informs3}      % if dvips is used
-%\documentclass[dvipsone,opre]{informs3}   % if dvipsone is used, etc.
+%\documentclass[dvipsone,opre]{informs3}   % if dvipsone is used, etc.https://www.overleaf.com/project/5c2deea94dfa185b5416465b
 
 %%% OPRE uses endnotes
 %%\usepackage{endnotes}
@@ -391,7 +391,7 @@ We apply the multi-objective optimization tool in the selection of weights for t
 
 When SEC sells an existing asset to private generation companies the  capacity and energy price targets selected by the buyer of the PPA will be influenced by the government and industry regulators. The assets owned by the SEC include government backed debt obligations, and the government is likely to prioritize selling these assets at a valuation that covers the sunk costs and debts owed by SEC. As a result the buyer may have to commit to a higher targeted capacity price in order to attract private companies to invest. Alternatively, the government could put less emphasis on the value of the capacity, and focus on other aspect of the market such as reforming energy prices.
  
-How capacity is valued has a direct impact on targets set for the energy price and production. Under a higher capacity price, the regulator may require the buyer to seek lower targets for the energy price to control tariff levels and protect consumers. These targets align well with solar power projects, given the low variable cost of producing electricity. However, for conventional thermal power plants the government may have to compromise on fuel price reform objectives in order to attract more bids from generation companies. This would negatively impact market signals needed to support system efficiency improvements and transition to alternative technologies, like solar power, as laid out in Saudi Arabia’s Vision 2030. 
+How capacity is valued has a direct impact on targets set for the energy price and production. Under a higher capacity price, the regulator may require the buyer to seek lower targets for the energy price to control tariff levels and protect consumers. These targets align well with solar power projects, given the low variable cost of producing electricity. However, for conventional thermal power plants the government may have to compromise on fuel price reform objectives in order to attract more bids from generation companies. This would negatively impact price signals needed to support system efficiency improvements and the transition to alternative technologies, like solar power, as laid out in Saudi Arabia’s Vision 2030. 
 
 Alternatively, increasing fuel prices, and the resulting energy prices paid to generators, could stress government expenditures on consumer electricity subsidies. A lower capacity price target could be seen as favorable to such reform efforts during the initial stages of market restructuring. Higher energy price targets could be set without excessively increasing consumer tariffs and government subsidies, to attract private sector investors and more bids with a lower capacity price target. However, this could require the government compromising on the SEC’s debt obligations and absorbing some of the sunk costs.
 
@@ -416,50 +416,20 @@ The targets are selected for a PPA awarded to the winning private bidder of the 
 
 Calculating the average and standard deviations of each decision criteria can be challenging because of the lack of published data on existing project proposals. As an estimate  we construct a four parameter beta distribution for each decision criteria $x_j$, as shown in figure \ref{figBeta}  with the expected value and standard deviation expressed in equation (\ref{eqBetaDist}). We define $x_j^{min}$ and $x_j^{max}$ as the minimum and maximum values of the distribution, respectively, while $\alpha_j$ and $\beta_j$ are the shape parameter of the distribution. This allows us to construct distributions for  a specific range with the flexibility to design different bidding behaviours by modifying $\alpha_j$ and $\beta_j$.
 
+
+\begin{figure}
+	\centering 
+    \includegraphics[scale=1]{figure1.png}
+    \caption{Beta distributions for financial strength (a), local content (b), and ears of experience (c)}
+    \label{figBeta}
+\end{figure}
+
 \begin{subequations} \label{eqBetaDist}
 \begin{align}
 	&\qquad \mathbb{E}(x_j) = \frac{\alpha_j x_j^{max}+\beta_j x_j^{min}}{\alpha_j+\beta_j}\label{eqBetaAvg}  \\
     &\qquad \sigma(x_j) = \frac{x_j^{max}-x_j^{min}}{\alpha_j\beta_j}\left(\frac{\alpha_j \beta_j}{\alpha_j+\beta_j+1}\right) ^{1/2}\label{eqBetaStd} 
 \end{align}
 \end{subequations}
-
-\NewEnviron{plotBeta}[5]{
-	\newcommand{\betaAvg}{\pgfmathparse{(#4*#3+#5*#2)/(#4+#5)}\pgfmathresult}
-    \newcommand{\betaStd}{\pgfmathparse{(#3-#2)/(#5+#4)*sqrt(#4*#5/(#5+#4+1))}\pgfmathresult}
-    	\centering	      	\begin{tikzpicture}
-        	\node [anchor=west] (params) at (4,5) {\small $\alpha =#4$};
-            \node [anchor=west] (params) at (4,4.5) {\small$\beta=#5 $};
-            \node [anchor=west](avg) at (4,4) {\small $\mathbb{E}(#1)=\betaAvg$};
-            \node [anchor=west](std) at (4,3.5) {\small $\sigma(#1)=\betaStd$};
-          	\begin{axis}[
-          		xmin=#2, 
-                xmax=#3, 
-                no markers,
-             ]
-           		\addplot gnuplot [raw gnuplot] {
-              		\GnuplotDefs
-                  	plot [x=#2:#3] beta(x,#2,#3,#4,#5);
-                 };
-           \end{axis}
-        \end{tikzpicture}
-        \caption{$#1$}
-        \label{figBeta#1}
-}
-\begin{figure}
-	\centering 
-    
-    \begin{subfigure}[b]{0.5\textwidth}
-    	\plotBeta{h}{0.6}{0.9}{4}{4} 
-    \end{subfigure}~
-    \begin{subfigure}[b]{0.5\textwidth}
-    	\plotBeta{l}{0.2}{0.4}{1}{2} 
-    \end{subfigure}//
-	\begin{subfigure}[b]{0.5\textwidth}
-    	\plotBeta{y}{2}{10}{2}{6}
-    \end{subfigure}~
-    \caption{Beta distributions for financial strength (a), local content (b), and ears of experience (c)}
-    \label{figBeta}
-\end{figure}
 
 We start by defining the beta distributions and targets for years of experience, financial strength, and local content plotted in figure \ref{figBeta}. The domain bounds on the horizontal axis represent the maximum and minimum values assigned to each distribution. 
 
@@ -471,7 +441,7 @@ The distribution of local content, shown in figure (\ref{figBetal}) is concentra
 
 Other parameters related to years of experience, financial strength local content and the utilization factor are as follows. The slippage parameter increasing capital cost for each year of experience ($\tau$) is  set to  1\% of the total capital cost at the targeted level of local content. The slippage parameter for financial strength $(\mu)$  is set such that at the targeted level of financial strength and local content the capital cost increases by 10\%, (0.13\% for each percentage point of financial guarantees).  The initial utilization factor, defined as $\theta_0$, is set to 70\%. It is modified by the impact of local content $(\epsilon_l)$, set to -0.1\% for each percentage of local content used in the project,  plus the positive  impact of financial strength $(\epsilon_h)$, set to 0.05\% for each percent of financial warranties secured by the company. These values reflect how the generators decisions can impact their bid for project, but do not based on actual statistics.
 
-The target energy and capacity prices are determined using reported investment and variable operating costs. The annualized capital cost of the Al Mourjan plant is calculated as 188 USD/KW assuming a 6\% discount rate for Saudi power sector investments (\citealp{Matar_et_al_2016}), for a 35 year lifetime. We set the benchmark annualized capital cost at 100\% international content to 73 USD/KW, using a capital cost of 1059 USD/KW as reported for a CCGT by \cite{Rioux_et_al_2017}, applying the same discount rate and lifetime. This discrepancy between the two reveals a significant markup on the Saudi project, with respect to the international benchmark. One reasoning for the capital markup could be that PPAs offer a very low price for energy with a small rent on production for producers. This can cause investors to markup the reported cost of capital to receive a higher capacity payment and return on the actual (as opposed to reported) investment. \todo{Any examples. studies to support this?}
+The target energy and capacity prices are determined using reported investment and variable operating costs. The annualized capital cost of the Al Mourjan plant is calculated as 188 USD/KW assuming a 6\% discount rate for Saudi power sector investments (\citealp{Matar_et_al_2016}), for a 35 year lifetime. We set the benchmark annualized capital cost at 100\% international content to 73 USD/KW, using a capital cost of 1059 USD/KW as reported for a CCGT by \cite{Rioux_et_al_2017}, applying the same discount rate and lifetime. This discrepancy between the two reveals a significant markup on the Saudi project, with respect to the international benchmark. One reasoning for the capital markup could be that PPAs offer a very low price for energy with a small rent on production for producers. This can cause investors to markup the reported cost of capital to receive a higher capacity payment and return on the actual (as opposed to reported) investment. 
 
 The capital cost under 100\% local content is set to 400 USD/KW, assuming that the reported capital cost for the Al Mourjan plant (188 USD/KW) corresponds to 30\%  local content, and includes the cost slippage for years of experience and financial strength. We assume a a non-fuel variable operating cost of 1.24 USD/MWH using values reported in \cite{Rioux_et_al_2017}.
 
@@ -485,22 +455,8 @@ The beta distributions of the energy and capacity price bids for all three scena
 The results of the model, including the value of the rating function $(\phi)$, the probability of the bid being accepted $(\rho)$, the weights assigned by the buyer, cost of the contract, generator costs and total profits, are listed in table (\ref{tableResults}).
 \begin{figure}
 	\centering 
-    \begin{subfigure}[b]{0.5\textwidth}
-    	\plotBeta{p}{11.5}{12.68}{10}{10}
-    \end{subfigure}~
-    \begin{subfigure}[b]{0.5\textwidth}
-    	\plotBeta{\delta}{188}{207.27}{5}{6} 
-    \end{subfigure}\\
-    \begin{subfigure}[b]{0.5\textwidth}
-    	\plotBeta{p}{28.2}{31.09}{10}{10}
-    \end{subfigure}~
-    \begin{subfigure}[b]{0.5\textwidth}
-    	\plotBeta{\delta}{94}{1103.64}{5}{5} 
-    \end{subfigure}\\
-        \begin{subfigure}[b]{0.5\textwidth}
-    	\plotBeta{p}{28.2}{31.09}{5}{5}
-    \end{subfigure}~
-    \caption{Beta distributions of the energy price and capacity price for the $\textit{high capacity price}$, (a) and (b), $\textit{low capacity price}$, (c) and (d), and $\textit{higher volatility} $ (e) scenarios}
+	\includegraphics[scale=1]{figure2.png}
+    \caption{Beta distributions of the energy price and capacity price for the $\textit{high capacity price}$ scenario, (a) and (b), and $\textit{low capacity price}$ scenario, (c) and (d), and beta distribution of the energy price under the $\textit{higher volatility} $ scenario (e)}
     \label{figBetaPrices}
 \end{figure}
 
@@ -509,7 +465,7 @@ The results of the model, including the value of the rating function $(\phi)$, t
 \caption {Rating, probability of bid acceptance, weights, contract cost, generator cost, and profit for each scenario} \label{tableResults}
 \begin{tabular}{@{}llll@{}}
 \toprule
-Scenario                & $\textit{High capacity price}$ & $\textit{Low capacity price}$ & $\textit{Lower price volatility}$ \\ \midrule
+Scenario                & \textit{High capacity price} & \textit{Low capacity price} & \textit{Lower price volatility} \\ \midrule
 Rating, $\phi$          & 0.072                          & 0.175                         & 0.140                             \\
 $\rho$                  & 0.518                          & 0.544                         & 0.535                             \\
 $\omega_p$              & 0.101                          & 0.267                         & 0.298                             \\
@@ -528,7 +484,7 @@ Profit (bil \$)         & 0.068                          & 0.072                
 
 \section{Conclusions}\label{Conclusions}
 
-fdfdfdfdfdfdfdfd
+
 %%%%%%%%%%
 
 \begin{thebibliography}{}
