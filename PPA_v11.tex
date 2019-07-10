@@ -348,7 +348,7 @@ The buyer selects the weights to the different objectives of the call for projec
 
 The remaining equations represent the inner level problem of the bidder, where the generators objective (\ref{eqGeneratorObjective})  is to maximize the expected profit of winning the bid. The inner problem is subject to the impact of local content, years of experience and financial strength, on the variable costs, fixed costs, and capacity utilization in equations (\ref{eqBuyerMarginalCost}), (\ref{eqBuyerFixedCost}), and (\ref{eqBuyerTheta}), respectively, as described in Section \ref{Section_profit}. Finally we include the generators capacity limit (\ref{eqBuyerEnergySupply}), the impact of the energy price on the quantity of energy sold (\ref{eqBuyerEnergyDemand}), and the impact of the capacity price on size of the project  (\ref{eqBuyerCapacityDemand}).
 
-Next we include the bid response function (\ref{eqGeneratorProbability}) in the generators decision process, with the rating function defined in (\label{eqGeneratorRating}). We use a standardization process that allows the buyer to rate each bid with the decision variables expressed on the same scale. Each decision criteria is standardized based on a probability distribution, with expected value ${\mathbb{E}()} $ and standard deviation ${\sigma\left(\right)}$. To standardize we take the absolute difference between the decision and its expected value divided by the standard deviation.
+Next we include the bid response function (\ref{eqGeneratorProbability}) in the generators decision process, with the rating function defined in (\label{eqBuyerObjective}). We use a standardization process that allows the buyer to rate each bid with the decision variables expressed on the same scale. Each decision criteria is standardized based on a probability distribution, with expected value ${\mathbb{E}()} $ and standard deviation ${\sigma\left(\right)}$. To standardize we take the absolute difference between the decision and its expected value divided by the standard deviation.
 
 
 \begin{subequations}\label{eqBuyersProblem}
@@ -367,19 +367,73 @@ Next we include the bid response function (\ref{eqGeneratorProbability}) in the 
 	&\qquad \qquad c = c_I(1-l)+c_Ll \label{eqBuyerMarginalCost}\\
 	&\qquad \qquad f = f_I(1-l)+f_Ll+\tau y+\mu h \label{eqBuyerFixedCost}\\
 	&\qquad \qquad \theta = \theta_0-\epsilon_l l  +\epsilon_h h \label{eqBuyerTheta}\\
-    &\qquad \qquad q \leq \theta k	\label{eqBuyerEnergySupply} 	\qquad \perp \zeta_q\\
+    &\qquad \qquad q \leq \theta k	\label{eqBuyerEnergySupply} 	\qquad \perp \zeta_q \geq 0\\
 	&\qquad \qquad q = a - bp \label{eqBuyerEnergyDemand}\\	
 	&\qquad \qquad k = m -g \delta \label{eqBuyerCapacityDemand}\\
 	&\qquad	\qquad \rho(\delta, h, l, p,y)=\frac{1}{1+e^{-\phi(\delta, h, l, p, y)}} \label{eqGeneratorProbability}\\
-	&\qquad \qquad  h \leq 1 \label{eqGeneratorFinance}		\qquad \perp \zeta_h\\
-	&\qquad \qquad  l \leq 1 \label{eqGeneratorLocal}			\qquad \perp \zeta_l\\
-	&\qquad \qquad  \delta, h, l, p, y, \zeta_q, \zeta_h, \zeta_l \geq 0 \label{eqGeneratorNon-Negative}
+	&\qquad \qquad  h \leq 1 \label{eqGeneratorFinance}		\qquad \perp \zeta_h \geq 0\\
+	&\qquad \qquad  l \leq 1 \label{eqGeneratorLocal}			\qquad \perp \zeta_l \geq 0\\
+    &\qquad \qquad  p \geq 0 \label{eqGeneratorPNonN}			\qquad \perp \lambda_p \geq 0\\
+    &\qquad \qquad  \delta \geq 0 \label{eqGeneratorDeltaNonN}			\qquad \perp \lambda_{\delta} \geq 0\\
+    &\qquad \qquad  l \geq 0 \label{eqGeneratorLocalNonN}			\qquad \perp \lambda_l \geq 0\\
+    &\qquad \qquad  h \geq 0 \label{eqGeneratorFinNonN}			\qquad \perp \lambda_h\geq 0\\
+    &\qquad \qquad  y\geq 0 \label{eqGeneratorExpNonN}			\qquad \perp \lambda_y \geq 0\\
 	\end{align}
 \end{subequations}
 
-The $\nu$ stands for the dual variable of the buyer's problem for the weights constraint. The $\zeta$ represents the dual variables of the generator's problem for the number of years of experience and local content. 
+The $\nu$ stands for the dual variable of the buyer's problem for the weights constraint.  $\zeta_h$ and $\zeta_y$ represent the dual variables of the generator's problem for the number of years of experience and local content, respectively.  $\lambda_p, \lambda_{\delta}, \lambda_l,\lambda_h$ and $\lambda_y$ are the dual on the non-negativity of $p,\delta, l, h$ and $y$, respectively.
 
+The bilevel problem can now be solved as a Mathematical Problem with  Equilbirum Constraints (MPEC), by deriving the optimally conditions of the follower or lower level generators problem, and introducing it into the buyers problem.
 
+Let $\Psi$ represent the generator's Lagrangian.  
+
+$\Psi =\frac{\left(p-c\right)(a - bp )+\left(\delta-f\right)(m -g\delta)}{1+e^{-\phi}} - \zeta_q(a - bp -\theta (m -g\delta))+\left( 1-h\right)\zeta_h+\left( 1-l\right)\zeta_l \\ +\lambda_p p+\lambda_{\delta} \delta+\lambda_l l +\lambda_h h+\lambda_y y  $
+
+Then by taking the partial derivative of the Lagrangian to each one of the generators decision variables and equating them to zero we obtain:
+
+$\frac{\partial \Psi}{\partial \delta} = \frac{m-2\delta g + g f}{1+e^{-\phi}}-\frac{w_{\delta} e^{-\phi} \left(\left(p-c\right)(a - bp )  +\left(\delta-f\right)(m -g\delta)\right)}{\sigma_{\delta}(1+e^{-\phi})^{2}}-g \theta \zeta_q + \lambda_{delta}=0$ ;
+
+$\frac{\partial \Psi}{\partial p} = \frac{a+bc-2bp}{1+e^{-\phi}}-\frac{w_p e^{-\phi} \left(\left(p-c\right)(a - bp )  +\left(\delta-f\right)(m -g\delta)\right)}{\sigma_{p}(1+e^{-\phi})^{2}}+b \zeta_q + \lambda_{p}  =0 $;
+
+$\frac{\partial \Psi}{\partial h} = -\frac{\left(m-g\delta\right)\mu}{1+e^{-\phi}}+{\frac{w_h e^{-\phi} \left(\left(p-c\right)(a - bp )  +\left(\delta-f\right)(m -g\delta)\right)}{\sigma_{h}(1+e^{-\phi})^{2}}}+\zeta_q \epsilon_h \left( m-g\delta\right)-\zeta_h+ \lambda_{h}-\zeta_h  =0 $;
+
+$\frac{\partial \Psi}{\partial l} =  -\frac{\left(m-g\delta\right)f_{L}}{1+e^{-\phi}}+{\frac{w_l e^{-\phi} \left(\left(p-c\right)(a - bp )  +\left(\delta-f\right)(m -g\delta)\right)}{\sigma_{l}(1+e^{-\phi})^{2}}}-\zeta_q \epsilon_l \left( m-g\delta\right)+ \lambda_{l}  -\zeta_l=0 $;
+
+$\frac{\partial \Psi}{\partial y} = -\frac{\left(m-g\delta\right)\tau}{1+e^{-\phi}}+ {\frac{w_y e^{-\phi} \left(\left(p-c\right)(a - bp )  +\left(\delta-f\right)(m -g\delta)\right)}{\sigma_{y}(1+e^{-\phi})^{2}}}+\lambda_{l}  =0 $;
+
+Next we can substitute the non-negativity constraints into the the stationary conditions to get the dual complementary conditions for each primal variable. These are then combined with the equations and constraints from the generators problem to produce the MPEC in terms of the buyers optimization.
+
+\begin{subequations}\label{eqBuyersMPEC}
+	\begin{align}
+	&\mathop {Maximize}\limits_{\omega_{\delta},\omega_{h},\omega_{l},\omega_{p,\omega_{y}}}
+	\quad \phi(\delta, h, l, p, y) =  	 \omega_{\delta}\frac{\mathop{\mathbb{E}}\left(\delta\right)-\delta }
+	{\sigma\left(l\right)}+\omega_{p}\frac{\mathop{\mathbb{E}}\left(p\right)-p}  {\sigma\left(p\right)} 
+	+\omega_{h}\frac{ h-\mathop{\mathbb{E}}\left(h\right)}
+	{\sigma\left(h\right)}+\omega_{l}\frac{ l-\mathop{\mathbb{E}}\left(l\right) }{\sigma\left(l\right)}+\omega_{y}\frac{y-\mathop{\mathbb{E}}\left(y\right)}{\sigma\left(y\right)} \label{eqBuyerObjective}\\
+	&\quad \mbox{{\it subject to}:}\notag\\
+ 	&\qquad	 \omega_{\delta}+\omega_{h}+\omega_{l}+\omega_{p}+\omega_{y}=1\label{eqBuyerNormal} \qquad \perp \nu\\
+	&\qquad  \omega_{\delta},\omega_{h},\omega_{l},\omega_{p},\omega_{y} \geq 0;\\
+    &\qquad q \leq \theta k	\label{eqBuyerEnergySupply2} 	\qquad \perp \zeta_q\geq 0\\
+    &\qquad   h \leq 1 \label{eqGeneratorFinance2}		\qquad \perp \zeta_h\geq 0\\
+	&\qquad   l \leq 1 \label{eqGeneratorLocal2}			\qquad \perp \zeta_l\geq 0\\
+    & \qquad  \frac{m-2\delta g + g f}{1+e^{-\phi}}-\frac{w_{\delta} e^{-\phi} \left(\left(p-c\right)q +\left(\delta-f\right)k\right)}{\sigma_{\delta}(1+e^{-\phi})^{2}}-g \theta \zeta_q  \geq 0 \qquad\qquad \perp \delta \geq 0\\
+    &\qquad \frac{a+bc-2bp}{1+e^{-\phi}}-\frac{w_p e^{-\phi} \left(\left(p-c\right)q+\left(\delta-f\right)k\right)}{\sigma_{p}(1+e^{-\phi})^{2}}+b \zeta_q  \geq 0 \qquad\qquad\qquad \perp p \geq 0\\
+    & \qquad -\frac{\left(m-g\delta\right)\mu}{1+e^{-\phi}}+{\frac{w_h e^{-\phi} \left(\left(p-c\right)p +\left(\delta-f\right)k\right)}{\sigma_{h}(1+e^{-\phi})^{2}}}+\zeta_q \epsilon_h k-\zeta_h \geq 0 \qquad \perp h\geq 0\\
+    & \qquad -\frac{k f_{L}}{1+e^{-\phi}}+{\frac{w_l e^{-\phi} \left(\left(p-c\right)q  +\left(\delta-f\right)k\right)}{\sigma_{l}(1+e^{-\phi})^{2}}}-\zeta_q \epsilon_l k -\zeta_l \geq 0 \qquad\qquad \perp l\geq 0\\
+    &\qquad  -\frac{k\tau}{1+e^{-\phi}}+ {\frac{w_y e^{-\phi} \left(\left(p-c\right)q +\left(\delta-f\right)k\right)}{\sigma_{y}(1+e^{-\phi})^{2}}} \geq 0 \qquad\qquad\qquad\qquad \perp y\geq 0\\  
+	&\qquad c = c_I(1-l)+c_Ll \label{eqBuyerMarginalCost2}\\
+	&\qquad f = f_I(1-l)+f_Ll+\tau y+\mu h \label{eqBuyerFixedCost2}\\
+	&\qquad \theta = \theta_0-\epsilon_l l  +\epsilon_h h \label{eqBuyerTheta2}\\
+	&\qquad  q = a - bp \label{eqBuyerEnergyDemand2}\\	
+	&\qquad  k = m -g \delta \label{eqBuyerCapacityDemand2}\\
+	&\qquad	 \rho(\delta, h, l, p,y)=\frac{1}{1+e^{-\phi(\delta, h, l, p, y)}} \label{eqGeneratorProbability2}\\
+	\end{align}
+\end{subequations}
+
+    
+   
+ 
+   
 \subsection{Structural Analysis}\label{Section_analytics}
 
 The bi-level problem (\ref{eqBuyersProblem}) is non-linear and, not convex, due to the functional form of the generator's expected profit (\ref{eqGeneratorObjective}). For this reason, in general, such a problem may have multiple local optima and the Lagrangian of the generator's problem does not have a close-form solution. 
